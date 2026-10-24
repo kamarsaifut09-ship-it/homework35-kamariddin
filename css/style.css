@@ -1,0 +1,407 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --blue: #315cff;
+    --blue-hover: #244be0;
+    --orange: #ff7043;
+    --text: #252b38;
+    --muted: #7c8493;
+    --border: #dcdfe6;
+    --surface: #ffffff;
+    --background: #f4f7fb;
+    --danger: #e53935;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 32px 18px;
+    position: relative;
+    isolation: isolate;
+    overflow-x: hidden;
+    background: var(--background);
+    color: var(--text);
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 13px;
+}
+
+/* Ненавязчивый динамичный фон */
+body::before {
+    content: "";
+    position: fixed;
+    inset: -20%;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(
+            circle at 15% 25%,
+            rgba(49, 92, 255, 0.11),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 75%,
+            rgba(0, 180, 255, 0.10),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 75% 15%,
+            rgba(255, 112, 67, 0.07),
+            transparent 26%
+        );
+    filter: blur(35px);
+    animation: backgroundMove 14s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundMove {
+    from {
+        transform: translate(-2%, -2%) scale(0.96);
+    }
+
+    to {
+        transform: translate(3%, 3%) scale(1.06);
+    }
+}
+
+.container {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 32px;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(220, 223, 230, 0.9);
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(35, 51, 85, 0.07);
+    backdrop-filter: blur(10px);
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 26px;
+}
+
+.page-header h1 {
+    margin: 0 0 8px;
+    color: var(--blue);
+    font-size: clamp(23px, 4vw, 30px);
+    line-height: 1.25;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+}
+
+.page-header p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.form-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.toolbar-label {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* Секции */
+fieldset {
+    min-width: 0;
+    margin: 0 0 22px;
+    padding: 0;
+    border: 0;
+}
+
+legend {
+    width: 100%;
+    margin-bottom: 16px;
+    padding: 0 0 10px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.35px;
+}
+
+/* Сетка полей */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 20px;
+    row-gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+label {
+    margin-bottom: 7px;
+    color: #303746;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+label span {
+    color: var(--danger);
+}
+
+input,
+select,
+textarea {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding: 11px 12px;
+    border: 1px solid #d5d8df;
+    border-radius: 6px;
+    outline: none;
+    background: #fff;
+    color: var(--text);
+    font: inherit;
+    font-size: 12px;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+input,
+select {
+    min-height: 42px;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #a0a6b1;
+    font-style: italic;
+}
+
+select {
+    cursor: pointer;
+}
+
+textarea {
+    min-height: 125px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(49, 92, 255, 0.10);
+}
+
+/* Ошибки валидации */
+.error {
+    display: block;
+    min-height: 0;
+    margin-top: 4px;
+    color: var(--danger);
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.error:not(:empty) {
+    margin-bottom: 2px;
+}
+
+input.invalid,
+select.invalid,
+textarea.invalid,
+input.error-field,
+select.error-field,
+textarea.error-field {
+    border-color: var(--danger);
+    background: #fffafa;
+}
+
+/* Кнопка случайного заполнения */
+.random-btn {
+    flex-shrink: 0;
+    padding: 10px 14px;
+    border: 1px solid var(--orange);
+    border-radius: 6px;
+    background: #fff8f4;
+    color: #ed633b;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.random-btn:hover {
+    background: var(--orange);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+/* Основная кнопка */
+.submit-btn {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    margin-top: 8px;
+    padding: 14px 20px;
+    border: 0;
+    border-radius: 7px;
+    background: var(--blue);
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 5px 12px rgba(49, 92, 255, 0.16);
+    transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.submit-btn:hover {
+    background: var(--blue-hover);
+    box-shadow: 0 7px 18px rgba(49, 92, 255, 0.23);
+    transform: translateY(-1px);
+}
+
+.submit-btn:disabled {
+    opacity: 0.65;
+    cursor: wait;
+    transform: none;
+}
+
+.form-note {
+    margin: 18px 0 0;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.8;
+    text-align: center;
+}
+
+/* Плавное появление формы */
+.container {
+    animation: formAppear 0.55s ease-out both;
+}
+
+@keyframes formAppear {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Планшеты и телефоны */
+@media (max-width: 600px) {
+    body {
+        padding: 14px 10px;
+    }
+
+    .container {
+        padding: 22px 17px;
+        border-radius: 10px;
+    }
+
+    .page-header {
+        margin-bottom: 22px;
+    }
+
+    .form-grid {
+        column-gap: 12px;
+        row-gap: 13px;
+    }
+
+    fieldset {
+        margin-bottom: 20px;
+    }
+
+    input,
+    select {
+        padding: 10px 8px;
+        font-size: 11px;
+    }
+
+    label {
+        font-size: 11px;
+    }
+
+    .form-toolbar {
+        align-items: flex-start;
+    }
+
+    .toolbar-label {
+        padding-top: 9px;
+    }
+
+    .random-btn {
+        padding: 9px;
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 420px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full-width {
+        grid-column: auto;
+    }
+
+    .page-header h1 {
+        font-size: 23px;
+    }
+
+    .form-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .random-btn {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    body::before {
+        animation: none;
+    }
+}
